@@ -127,7 +127,7 @@ distributed-systems-learning-resources/
 | I want to... | Go to |
 | --- | --- |
 | See the plan | [Six-Month Roadmap](01-Roadmap/6-month-roadmap.md) |
-| Browse the knowledge | [Concept Index](03-Concepts/README.md) |
+| **See the whole subject at once** | [**Knowledge Map**](03-Concepts/README.md) — graphs + every concept |
 | See a finished note | [Raft](03-Concepts/Distributed-Systems/Consensus/Raft.md) |
 | See a finished lab | [Lab 02 — Timeouts and Retries](04-Labs/02-Timeouts-Retries/README.md) |
 | See a decision recorded | [ADR-0001 — Use Kafka for job dispatch](06-Architecture/ADRs/0001-use-kafka-for-job-dispatch.md) |

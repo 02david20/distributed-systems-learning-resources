@@ -37,6 +37,14 @@ introduction if DDIA feels dense.
 Andy Pavlo's 15-445 and 15-721 lectures, plus the "Database Talks" seminar
 series where system authors present their own designs.
 
+### Cambridge — Distributed Systems (Martin Kleppmann)
+
+<https://www.youtube.com/playlist?list=PLeKd45zvjcDFUEv_ohr_HdUFe97RItdiB>
+
+Listed again here because it is the highest-value video series on this page:
+eight lectures with written notes, by the author of DDIA. See
+[Courses](Courses.md).
+
 ## Individual talks
 
 | Talk | Why |
@@ -46,6 +54,9 @@ series where system authors present their own designs.
 | Martin Kleppmann, *Turning the database inside out* | Event logs as the primary abstraction |
 | Rich Hickey, *Simple Made Easy* | Not distributed systems, but the clearest available thinking about complexity |
 | Jeff Dean, *Building Software Systems at Google Scale* | Where the latency numbers everyone quotes come from |
+| [Tim Berglund, *Distributed Systems in One Lesson*](https://www.youtube.com/watch?v=Y6Ev8GIlbxc) | Storage, computation, messaging and consensus explained with a coffee-shop analogy. The best single talk to watch in Week 1 |
+| [Martin Kleppmann, *CRDTs and the Quest for Distributed Consistency*](https://www.youtube.com/watch?v=B5NULPSiOGw) | Coordination-free convergence, and why collaborative editors work |
+| Camille Fournier, *ZooKeeper for the Skeptical Architect* | From someone who maintained ZooKeeper: when coordination services are the wrong answer |
 
 ## Conference channels
 

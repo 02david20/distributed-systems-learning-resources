@@ -71,8 +71,71 @@ work queues in print.
 Methodology for performance work: the USE method, latency analysis, and how not
 to be fooled by averages. Relevant to Week 1 and to every lab afterwards.
 
-## Distributed Systems for Fun and Profit — Mikito Takada
+## Free and short
 
-Free: <https://book.mixu.net/distsys/>
+### Distributed Systems for Fun and Profit — Mikito Takada
 
-Short and free. A good two-hour orientation before starting Month 1.
+<https://book.mixu.net/distsys/>
+
+A good two-hour orientation before starting Month 1. Covers the abstractions,
+time and order, and replication, without asking for a month of your life.
+
+### Distributed Systems — Tanenbaum & Van Steen (4th ed.)
+
+<https://www.distributed-systems.net/index.php/books/ds4/>
+
+Free PDF from the authors. The standard university textbook: broader and more
+formal than DDIA, and the better reference when you want the *definition* of
+something rather than the engineering trade-off.
+
+### Scalable Web Architecture and Distributed Systems — Kate Matsudaira
+
+<https://aosabook.org/en/v2/distsys.html>
+
+One chapter of *The Architecture of Open Source Applications*. A compact tour
+of the pieces — caches, proxies, indexes, queues — and why each exists.
+
+### An Introduction to Distributed Systems — Kyle Kingsbury
+
+<https://github.com/aphyr/distsys-class>
+
+Course notes rather than a book, and unusually precise about what the words
+mean. Pairs well with the [Jepsen analyses](https://jepsen.io/analyses).
+
+## Theory
+
+Read these if the theory becomes interesting on its own terms. None is required
+by the roadmap, and none is a good first book.
+
+| Book | What it is for |
+| --- | --- |
+| **Distributed Algorithms** — Nancy Lynch | The canonical formal reference. Dense, rigorous, and the place proofs actually live |
+| **Distributed Computing: Fundamentals, Simulations and Advanced Topics** — Attiya & Welch | More approachable than Lynch, same territory |
+| **Principles of Distributed Systems** — ETH Zurich ([free PDF](https://disco.ethz.ch/courses/podc_allstars/)) | Lecture notes; good for a single topic in isolation |
+| **Impossibility Results for Distributed Computing** — Attiya & Ellen | What provably *cannot* be done, and why. Short |
+
+## Worth knowing about
+
+### Designing Distributed Systems — Brendan Burns
+
+Patterns for container-based systems (sidecar, ambassador, adapter, scatter-
+gather) from a Kubernetes co-founder. Thin, and useful in Month 6.
+
+### Making reliable distributed systems in the presence of software errors — Joe Armstrong
+
+<https://erlang.org/download/armstrong_thesis_2003.pdf>
+
+Erlang's PhD thesis. "Let it crash" as a coherent philosophy rather than a
+slogan — supervision trees, isolation and failure as a normal event. Genuinely
+changes how you think about error handling.
+
+### Systemantics: How Systems Work and Especially How They Fail — John Gall
+
+Not a technical book. A short, funny, and uncomfortably accurate account of why
+large systems fail in ways nobody designed. "A complex system that works is
+invariably found to have evolved from a simple system that worked."
+
+!!! tip "Do not buy all of these"
+    Two books carry the six months: **DDIA** and the **SRE book** (free).
+    Everything above is a reference to reach for when a specific question
+    appears, not a reading list to work through.
