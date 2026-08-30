@@ -20,7 +20,7 @@ Python 3.9 or newer. Use a virtual environment so the toolchain cannot collide
 with anything else on the machine.
 
 ```bash
-cd cloud-distributed-systems-learning
+cd distributed-systems-learning-resources
 python3 -m venv .venv
 source .venv/bin/activate          # Windows: .venv\Scripts\activate
 pip install -r requirements.txt

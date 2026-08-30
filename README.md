@@ -96,7 +96,7 @@ Current week: [`01-Roadmap/current-week.md`](01-Roadmap/current-week.md)
 ## Repository structure
 
 ```text
-cloud-distributed-systems-learning/
+distributed-systems-learning-resources/
 ├── README.md                  ← this file; also the site home page
 ├── mkdocs.yml                 ← site configuration
 ├── requirements.txt           ← documentation toolchain

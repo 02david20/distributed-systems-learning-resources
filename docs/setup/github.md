@@ -21,17 +21,17 @@ Manual configuration on GitHub's side. About 15 minutes, once.
 ## Step 1 — Create the repository
 
 ```bash
-cd cloud-distributed-systems-learning
+cd distributed-systems-learning-resources
 git init
 git add -A
 git commit -m "Bootstrap knowledge base"
-gh repo create cloud-distributed-systems-learning --public --source=. --push
+gh repo create distributed-systems-learning-resources --public --source=. --push
 ```
 
 Or create it in the web UI and:
 
 ```bash
-git remote add origin https://github.com/USERNAME/cloud-distributed-systems-learning.git
+git remote add origin https://github.com/02david20/distributed-systems-learning-resources.git
 git branch -M main
 git push -u origin main
 ```
@@ -45,19 +45,19 @@ including notes marked `publish: false`. See [Publishing](../publishing.md).
 
 ## Step 2 — Replace the placeholders
 
-`mkdocs.yml` ships with `USERNAME` in three places:
+`mkdocs.yml` ships with `02david20` in three places:
 
 ```yaml
-site_url: https://USERNAME.github.io/cloud-distributed-systems-learning/
-repo_url: https://github.com/USERNAME/cloud-distributed-systems-learning
+site_url: https://02david20.github.io/distributed-systems-learning-resources/
+repo_url: https://github.com/02david20/distributed-systems-learning-resources
 extra:
   social:
-    - link: https://github.com/USERNAME
+    - link: https://github.com/02david20
 ```
 
 ```bash
-sed -i '' 's/USERNAME/your-github-username/g' mkdocs.yml   # macOS
-sed -i    's/USERNAME/your-github-username/g' mkdocs.yml   # Linux
+sed -i '' 's/02david20/your-github-username/g' mkdocs.yml   # macOS
+sed -i    's/02david20/your-github-username/g' mkdocs.yml   # Linux
 ```
 
 Do the same in `README.md` and `docs/git-workflow.md` if you want those links
@@ -76,7 +76,7 @@ the workflow publishes an artifact directly.
 The site appears at:
 
 ```text
-https://USERNAME.github.io/cloud-distributed-systems-learning/
+https://02david20.github.io/distributed-systems-learning-resources/
 ```
 
 The first deploy can take a few minutes to become reachable after the workflow

@@ -90,7 +90,7 @@ link is caught before it reaches `main`.
 
 ## What must never be committed
 
-The [`.gitignore`](https://github.com/USERNAME/cloud-distributed-systems-learning/blob/main/.gitignore)
+The [`.gitignore`](https://github.com/02david20/distributed-systems-learning-resources/blob/main/.gitignore)
 covers these, but the rules are worth knowing:
 
 | Category | Examples | Why |

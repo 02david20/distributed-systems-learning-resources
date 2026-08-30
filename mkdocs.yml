@@ -12,9 +12,9 @@ site_name: Cloud & Distributed Systems Learning
 site_description: A working knowledge base for cloud computing and distributed systems.
 site_author: David
 # Change these two after creating the GitHub repository.
-site_url: https://USERNAME.github.io/cloud-distributed-systems-learning/
-repo_url: https://github.com/USERNAME/cloud-distributed-systems-learning
-repo_name: cloud-distributed-systems-learning
+site_url: https://02david20.github.io/distributed-systems-learning-resources/
+repo_url: https://github.com/02david20/distributed-systems-learning-resources
+repo_name: distributed-systems-learning-resources
 edit_uri: edit/main/
 
 # The repository root IS the docs directory: one copy of every Markdown file,
@@ -126,7 +126,7 @@ markdown_extensions:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/USERNAME
+      link: https://github.com/02david20
   generator: false
 
 # `mkdocs build --strict` turns these into errors, which is what CI runs.

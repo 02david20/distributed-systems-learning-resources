@@ -39,8 +39,8 @@ Obsidian Sync is a paid service that this setup replaces with Git.
 ## Step 2 — Clone the repository
 
 ```bash
-git clone https://github.com/USERNAME/cloud-distributed-systems-learning.git
-cd cloud-distributed-systems-learning
+git clone https://github.com/02david20/distributed-systems-learning-resources.git
+cd distributed-systems-learning-resources
 ```
 
 Put it somewhere permanent and **not inside a cloud-sync folder**. Dropbox,
@@ -55,7 +55,7 @@ Good: `~/vaults/`, `~/projects/`, `~/Documents/` (if not synced).
 
 1. Launch Obsidian.
 2. **Open folder as vault**.
-3. Select the cloned `cloud-distributed-systems-learning` directory.
+3. Select the cloned `distributed-systems-learning-resources` directory.
 4. Obsidian asks whether to trust the author of the vault — this is about
    whether to allow community plugins to run. Since the vault ships no plugin
    code, either answer is safe; **Trust author and enable plugins** is
@@ -283,7 +283,7 @@ git push
 run. It should go green in one to two minutes.
 
 **7. Confirm on the live site:**
-`https://USERNAME.github.io/cloud-distributed-systems-learning/`
+`https://02david20.github.io/distributed-systems-learning-resources/`
 
 **8. Test the private path:** change the frontmatter to `status: draft`,
 commit, push. After the rebuild the note is gone from the site — and still in
@@ -357,7 +357,7 @@ or unfindable, do not install it.**
 - Install any community plugin you decide you want
 - Configure Git credentials
 - [Enable GitHub Pages and configure the repository](github.md)
-- Replace `USERNAME` in `mkdocs.yml` with your GitHub username
+- Replace `02david20` in `mkdocs.yml` with your GitHub username
 - Decide your own preferences — theme, hotkeys, daily notes
 
 None of the second list can be done safely from inside a repository. Software
