@@ -1,0 +1,97 @@
+name: Lab
+description: Run an experiment that answers one specific engineering question
+title: "Lab: "
+labels: ["lab"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A lab answers **one** question and records a prediction **before** the
+        run. If the goal needs the word "and", it is two labs.
+
+  - type: input
+    id: goal
+    attributes:
+      label: Goal
+      description: One specific engineering question.
+      placeholder: What happens to in-flight writes when the etcd leader crashes?
+    validations:
+      required: true
+
+  - type: textarea
+    id: hypothesis
+    attributes:
+      label: Hypothesis
+      description: >
+        Your prediction, written now, before running anything. Being wrong here
+        is the most valuable outcome the lab can produce.
+      placeholder: |
+        Writes will fail for roughly one election timeout (~1 s with defaults).
+        Clients will see a "no leader" error rather than a timeout. The old
+        leader will rejoin as a follower without data loss.
+    validations:
+      required: true
+
+  - type: textarea
+    id: setup
+    attributes:
+      label: Setup
+      description: What is needed to run this, reproducibly from a clean machine.
+      placeholder: |
+        - 3-node etcd cluster via Docker Compose
+        - Writer client at 100 writes/s, logging every ack and failure
+    validations:
+      required: true
+
+  - type: textarea
+    id: experiment
+    attributes:
+      label: Experiment
+      description: The steps, including how failure is injected.
+      placeholder: |
+        1. Start writer; confirm steady success rate
+        2. Identify the leader with etcdctl endpoint status
+        3. kill -9 the leader
+        4. Measure time to first failure and time to recovery
+        5. Restart the old leader; confirm it rejoins
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+      description: The measurable prediction. Numbers where possible.
+      placeholder: |
+        Unavailability: 1000-1500 ms
+        Failed writes: 100-150
+        Data loss: none
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result
+      description: Fill in after the run. Leave empty when opening the Issue.
+      placeholder: (filled in after running the lab)
+
+  - type: input
+    id: labnote
+    attributes:
+      label: Lab note
+      description: Path to the lab note.
+      placeholder: 04-Labs/05-Leader-Election/README.md
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: done
+    attributes:
+      label: Definition of done
+      options:
+        - label: Expected result was written **before** running
+        - label: Raw output is recorded in the note
+        - label: "**Actual Result** is filled in"
+        - label: The prediction is explicitly judged right or wrong
+        - label: Cleanup is done — nothing left running or billable

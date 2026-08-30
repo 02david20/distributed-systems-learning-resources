@@ -1,0 +1,9 @@
+title: Handbook
+nav:
+  - README.md
+  - conventions.md
+  - publishing.md
+  - git-workflow.md
+  - mermaid.md
+  - setup
+  - ...

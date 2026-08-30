@@ -1,0 +1,90 @@
+name: Learning task
+description: Learn a concept and produce a note
+title: "Learn: "
+labels: ["learning"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **The Issue is the action; the note holds the knowledge.**
+        Do not write the explanation here — write it in the Markdown note and
+        link it below.
+
+  - type: input
+    id: topic
+    attributes:
+      label: Topic
+      description: The concept to be learned.
+      placeholder: Raft leader election
+    validations:
+      required: true
+
+  - type: textarea
+    id: objective
+    attributes:
+      label: Learning objective
+      description: >
+        What you will be able to *do* afterwards. Phrase it as a demonstrable
+        capability, not "understand X".
+      placeholder: |
+        Explain, without notes, why a candidate whose log is behind cannot win
+        an election, and why that guarantees leader completeness.
+    validations:
+      required: true
+
+  - type: textarea
+    id: resources
+    attributes:
+      label: Resources
+      description: Primary sources to use. See 07-Resources/.
+      placeholder: |
+        - Raft paper (extended), §5.2 and §5.4
+        - MIT 6.5840 Lecture 5
+        - DDIA ch. 9
+    validations:
+      required: true
+
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Expected outcome
+      description: The concrete artefact this produces.
+      placeholder: |
+        - A note at 03-Concepts/Distributed-Systems/Consensus/Leader Election.md
+        - A written "My Understanding" section
+        - At least two open questions recorded
+    validations:
+      required: true
+
+  - type: input
+    id: note
+    attributes:
+      label: Related note
+      description: Path to the note this Issue produces (create it, even empty).
+      placeholder: 03-Concepts/Distributed-Systems/Consensus/Leader Election.md
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Subject area
+      options:
+        - distributed-systems
+        - cloud
+        - database
+        - messaging
+        - kubernetes
+        - architecture
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: done
+    attributes:
+      label: Definition of done
+      options:
+        - label: The note exists with complete frontmatter
+        - label: "**My Understanding** is written from memory, sources closed"
+        - label: Related concepts are linked in both directions
+        - label: Open questions are recorded

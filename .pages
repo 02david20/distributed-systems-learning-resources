@@ -1,0 +1,14 @@
+# Top-level site navigation (mkdocs-awesome-pages-plugin).
+# `...` means "everything else, in filename order", so new folders and notes
+# appear automatically without editing this file.
+nav:
+  - README.md
+  - 01-Roadmap
+  - 03-Concepts
+  - 04-Labs
+  - 02-Courses
+  - 05-Projects
+  - 06-Architecture
+  - 07-Resources
+  - docs
+  - ...

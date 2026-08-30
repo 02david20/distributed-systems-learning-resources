@@ -1,0 +1,87 @@
+# ---------------------------------------------------------------------------
+# Secrets — never commit credentials of any kind.
+# ---------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
+*.kubeconfig
+kubeconfig
+credentials
+credentials.json
+service-account*.json
+.aws/
+.azure/
+.gcloud/
+*.tfvars
+!*.tfvars.example
+terraform.tfstate
+terraform.tfstate.*
+.terraform/
+
+# ---------------------------------------------------------------------------
+# MkDocs build output
+# ---------------------------------------------------------------------------
+site/
+.cache/
+
+# ---------------------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------------------
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# ---------------------------------------------------------------------------
+# Obsidian
+#
+# NOTE: the .obsidian directory is deliberately NOT ignored wholesale.
+# Shared, portable settings (core plugin list, template folder, link format)
+# are versioned so every clone behaves the same. Only per-machine state,
+# caches and third-party plugin code are ignored below.
+# See docs/setup/obsidian.md for the full rationale.
+# ---------------------------------------------------------------------------
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+.obsidian/graph.json
+.obsidian/backlink.json
+.obsidian/canvas.json
+.obsidian/starred.json
+.obsidian/bookmarks.json
+.obsidian/plugins/
+.obsidian/themes/
+.obsidian/snippets/
+.trash/
+
+# ---------------------------------------------------------------------------
+# OS / editor metadata
+# ---------------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+desktop.ini
+*.swp
+*~
+.idea/
+.vscode/
+
+# ---------------------------------------------------------------------------
+# Scratch
+# ---------------------------------------------------------------------------
+*.tmp
+*.log
+tmp/
+scratch/

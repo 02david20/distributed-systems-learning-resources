@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Concept index
+    url: https://github.com/USERNAME/cloud-distributed-systems-learning/blob/main/03-Concepts/README.md
+    about: Check whether a note already exists before opening a learning task.
+  - name: Six-month roadmap
+    url: https://github.com/USERNAME/cloud-distributed-systems-learning/blob/main/01-Roadmap/6-month-roadmap.md
+    about: The plan this work should fit into.

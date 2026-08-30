@@ -1,0 +1,139 @@
+# ---------------------------------------------------------------------------
+# MkDocs configuration
+#
+# The Obsidian vault IS the docs directory: `docs_dir: .` below, made legal by
+# the `mkdocs-same-dir` plugin, so there is exactly one copy of every file.
+# What gets published is controlled in two places:
+#   1. `exclude_docs` below  -> path-based exclusion (Inbox, Templates, config)
+#   2. hooks/publishing.py   -> frontmatter-based exclusion (status: draft)
+# ---------------------------------------------------------------------------
+
+site_name: Cloud & Distributed Systems Learning
+site_description: A working knowledge base for cloud computing and distributed systems.
+site_author: David
+# Change these two after creating the GitHub repository.
+site_url: https://USERNAME.github.io/cloud-distributed-systems-learning/
+repo_url: https://github.com/USERNAME/cloud-distributed-systems-learning
+repo_name: cloud-distributed-systems-learning
+edit_uri: edit/main/
+
+# The repository root IS the docs directory: one copy of every Markdown file,
+# edited in Obsidian and published by MkDocs. `docs_dir: .` is normally
+# rejected by MkDocs; the `same-dir` plugin below removes that restriction.
+docs_dir: .
+
+theme:
+  name: material
+  language: en
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.indexes
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.action.edit
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Follow system theme
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+plugins:
+  # Removes MkDocs' refusal to accept `docs_dir: .`. Must come first.
+  - same-dir
+  # Builds the nav from the folder structure; titles/order come from .pages
+  # files. This means adding a note never requires editing mkdocs.yml.
+  - awesome-pages
+  - search
+
+hooks:
+  - hooks/publishing.py
+
+# Path-based exclusion (gitignore-style syntax, MkDocs >= 1.6).
+# Anything listed here is neither rendered nor copied into the built site.
+exclude_docs: |
+  .obsidian/
+  .github/
+  .venv/
+  venv/
+  hooks/
+  site/
+  00-Inbox/
+  99-Templates/
+  requirements.txt
+  CLAUDE.md
+  LICENSE
+
+markdown_extensions:
+  # Callouts: !!! note / !!! warning / ??? collapsible
+  - admonition
+  - pymdownx.details
+  # Tabbed content blocks
+  - pymdownx.tabbed:
+      alternate_style: true
+  # Fenced code + Mermaid rendering. The custom fence keeps ```mermaid blocks
+  # identical in Obsidian and on the site.
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.smartsymbols
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  # Task lists render the "- [ ]" checkboxes used throughout the templates.
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - attr_list
+  - md_in_html
+  - def_list
+  - footnotes
+  - tables
+  - toc:
+      permalink: true
+      permalink_title: Link to this section
+  - meta
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/USERNAME
+  generator: false
+
+# `mkdocs build --strict` turns these into errors, which is what CI runs.
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+  anchors: warn
+
+copyright: Personal learning notes. Content is a work in progress.

@@ -1,0 +1,83 @@
+name: Project
+description: A build task on a project
+title: "Project: "
+labels: ["project"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For build work. Design *decisions* belong in an ADR under
+        `06-Architecture/ADRs/`, not in this Issue.
+
+  - type: input
+    id: goal
+    attributes:
+      label: Goal
+      description: What this piece of work delivers.
+      placeholder: Add the outbox relay so job creation and publication are atomic
+    validations:
+      required: true
+
+  - type: textarea
+    id: requirements
+    attributes:
+      label: Requirements
+      description: Functional and non-functional, with numbers where they exist.
+      placeholder: |
+        - Job insert and outbox insert occur in one transaction
+        - Relay publishes within 500 ms p99 of commit
+        - Relay survives restart without losing or duplicating a publish
+    validations:
+      required: true
+
+  - type: textarea
+    id: architecture
+    attributes:
+      label: Architecture
+      description: Components touched, and how. Mermaid welcome.
+      placeholder: |
+        API -> PostgreSQL (jobs + outbox, one txn) -> relay -> Kafka
+    validations:
+      required: true
+
+  - type: textarea
+    id: deliverables
+    attributes:
+      label: Deliverables
+      placeholder: |
+        - Outbox table migration
+        - Relay process with metrics
+        - ADR-0002 recording polling vs. CDC
+        - Updated architecture diagram
+    validations:
+      required: true
+
+  - type: textarea
+    id: success
+    attributes:
+      label: Success criteria
+      description: How you will know it works — measurable, and preferably tested by failure injection.
+      placeholder: |
+        - Killing the API between the two writes never produces an orphaned job
+        - Killing the relay mid-publish produces duplicates, never losses
+        - outbox_oldest_unsent_seconds is visible on the dashboard
+    validations:
+      required: true
+
+  - type: input
+    id: projectnote
+    attributes:
+      label: Project note
+      placeholder: 05-Projects/Distributed-Job-Platform/README.md
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: done
+    attributes:
+      label: Definition of done
+      options:
+        - label: Success criteria are met and verified
+        - label: Failure behaviour is documented in the project note
+        - label: An ADR was written if a non-obvious decision was made
+        - label: Observability exists for the new component

@@ -1,0 +1,15 @@
+{
+  "useMarkdownLinks": true,
+  "newLinkFormat": "relative",
+  "alwaysUpdateLinks": true,
+  "newFileLocation": "folder",
+  "newFileFolderPath": "00-Inbox",
+  "attachmentFolderPath": "00-Inbox/attachments",
+  "showUnsupportedFiles": false,
+  "promptDelete": true,
+  "trashOption": "local",
+  "showLineNumber": false,
+  "readableLineLength": true,
+  "strictLineBreaks": false,
+  "spellcheck": true
+}
