@@ -67,9 +67,15 @@ live.
 
 ## Step 3 — Enable GitHub Pages
 
+The workflow tries to do this for you: `actions/configure-pages` is invoked
+with `enablement: true`, which creates the Pages site with the build type set
+to `workflow` on the first run.
+
+If that succeeds, there is nothing to do here. If it fails — some accounts and
+organisation policies do not permit the API to enable Pages — set it by hand:
+
 **Settings → Pages → Build and deployment → Source → `GitHub Actions`.**
 
-This is the current recommended method and the one the shipped workflow uses.
 Do **not** select "Deploy from a branch" — there is no `gh-pages` branch, and
 the workflow publishes an artifact directly.
 
@@ -201,7 +207,8 @@ caught before it can reach the live site.
 
 | Symptom | Cause | Fix |
 | --- | --- | --- |
-| Workflow fails: `Get Pages site failed` | Pages not enabled, or source is not "GitHub Actions" | Step 3 |
+| Workflow fails: `Get Pages site failed ... Not Found` | No Pages site exists yet, and `enablement: true` could not create one | Set Settings → Pages → Source → GitHub Actions by hand, then re-run |
+| Workflow warns about Node 20 deprecation | Informational only — every action here is a current major already running on Node 24 | Nothing to do |
 | Deploy succeeds, site 404s | Propagation delay, or wrong `site_url` | Wait; then check `site_url` in `mkdocs.yml` |
 | CSS missing, links broken on the live site | `site_url` does not match the real URL | Fix `site_url` — the subdirectory path matters |
 | Build fails only in CI | Local build was not run with `--strict` | `mkdocs build --strict` locally |

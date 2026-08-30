@@ -69,6 +69,13 @@ jobs:
         # Only needed for the deploy path; skipped on pull requests.
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/configure-pages@v5
+        with:
+          # Create the Pages site if it does not exist yet, with the build type
+          # set to "workflow". Without this, the first run of a new repository
+          # fails with "Get Pages site failed ... Not Found" until someone sets
+          # Settings -> Pages -> Source -> GitHub Actions by hand.
+          # Harmless once the site exists: the action is idempotent.
+          enablement: true
 
       - name: Upload Pages artifact
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
