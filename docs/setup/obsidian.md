@@ -283,7 +283,7 @@ git push
 run. It should go green in one to two minutes.
 
 **7. Confirm on the live site:**
-`https://02david20.github.io/distributed-systems-learning-resources/`
+`https://blogs.sentinelnodes.cc/`
 
 **8. Test the private path:** change the frontmatter to `status: draft`,
 commit, push. After the rebuild the note is gone from the site — and still in

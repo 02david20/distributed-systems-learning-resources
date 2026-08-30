@@ -45,15 +45,18 @@ including notes marked `publish: false`. See [Publishing](../publishing.md).
 
 ## Step 2 — Replace the placeholders
 
-`mkdocs.yml` ships with `02david20` in three places:
+Already done for this repository. If you fork it, these are the values to
+change:
 
 ```yaml
-site_url: https://02david20.github.io/distributed-systems-learning-resources/
+site_url: https://blogs.sentinelnodes.cc/            # or the github.io URL
 repo_url: https://github.com/02david20/distributed-systems-learning-resources
 extra:
   social:
     - link: https://github.com/02david20
 ```
+
+Plus the `CNAME` file at the repository root, which holds the custom domain.
 
 ```bash
 sed -i '' 's/02david20/your-github-username/g' mkdocs.yml   # macOS
@@ -85,12 +88,100 @@ The site appears at:
 https://02david20.github.io/distributed-systems-learning-resources/
 ```
 
+…until a custom domain is configured, after which that URL redirects to it.
+See Step 4.
+
 The first deploy can take a few minutes to become reachable after the workflow
 goes green.
 
 ---
 
-## Step 4 — Check Actions permissions
+## Step 4 — Custom domain
+
+This site is served from **`blogs.sentinelnodes.cc`**. A subdomain was chosen
+over the apex deliberately: it needs one ordinary CNAME record, it leaves
+`sentinelnodes.cc` free for other services, and the apex can only ever point at
+one Pages site.
+
+### 4a. The CNAME file
+
+The repository root holds a `CNAME` file containing exactly:
+
+```text
+blogs.sentinelnodes.cc
+```
+
+It must end up in the built site. `mkdocs-same-dir` passes `CNAME` through
+explicitly, so `site/CNAME` appears on every build — verify with:
+
+```bash
+mkdocs build --strict && cat site/CNAME
+```
+
+!!! warning "Do not delete this file"
+    With Actions-based publishing, each deployment replaces the whole site. If
+    `CNAME` is missing from the artifact, GitHub can clear the custom domain
+    setting and the site silently reverts to the `github.io` URL.
+
+### 4b. DNS at Cloudflare
+
+One record. `sentinelnodes.cc` is on Cloudflare DNS
+(`molly`/`etienne.ns.cloudflare.com`).
+
+| Type | Name | Target | Proxy | TTL |
+| --- | --- | --- | --- | --- |
+| `CNAME` | `blogs` | `02david20.github.io` | **DNS only (grey cloud)** | Auto |
+
+Note the target is the **user** host `02david20.github.io`, with no repository
+path — GitHub routes to the right project by the `CNAME` file's contents.
+
+!!! danger "The proxy must be off — grey cloud, not orange"
+    With Cloudflare proxying enabled, GitHub cannot complete the HTTP
+    validation needed to issue the TLS certificate, so **Enforce HTTPS stays
+    greyed out**. Worse, if Cloudflare's SSL/TLS mode is *Flexible*, enabling
+    Enforce HTTPS later produces an infinite redirect loop: Cloudflare talks
+    HTTP to GitHub, GitHub redirects to HTTPS, forever.
+
+    Turn the proxy off, get the certificate, and only then consider turning it
+    back on — and if you do, set SSL/TLS mode to **Full (strict)** first.
+
+### 4c. Tell GitHub
+
+**Settings → Pages → Custom domain** → enter `blogs.sentinelnodes.cc` → **Save**.
+
+GitHub runs a DNS check. Once it passes it requests a Let's Encrypt
+certificate, which usually takes a few minutes and occasionally up to an hour.
+
+When **Enforce HTTPS** becomes tickable, tick it.
+
+### 4d. Verify
+
+```bash
+# DNS resolves to GitHub Pages, not Cloudflare
+dig +short blogs.sentinelnodes.cc
+# expect: 02david20.github.io. then 185.199.10[8-11].153
+
+# Certificate is issued and the site is served
+curl -sSI https://blogs.sentinelnodes.cc/ | head -3
+
+# The old URL redirects to the new one
+curl -sS -o /dev/null -w '%{http_code} %{url_effective}\n' -L \
+  https://02david20.github.io/distributed-systems-learning-resources/
+```
+
+### Troubleshooting
+
+| Symptom | Cause | Fix |
+| --- | --- | --- |
+| "Domain does not resolve to the GitHub Pages server" | DNS not propagated, or proxy is on | Wait; set the record to DNS only |
+| Enforce HTTPS greyed out | Certificate not issued yet | Wait; confirm grey cloud, then re-save the domain |
+| Redirect loop after enabling HTTPS | Cloudflare SSL mode is Flexible | Set Full (strict), or turn the proxy off |
+| Custom domain empties itself after a deploy | `CNAME` missing from the build | Confirm `site/CNAME` exists |
+| Certificate valid for `github.io`, not the domain | Domain saved before DNS resolved | Remove the custom domain, save, re-add it |
+
+---
+
+## Step 5 — Check Actions permissions
 
 **Settings → Actions → General → Workflow permissions**
 
@@ -109,7 +200,7 @@ Actions are enabled for the repository at all.
 
 ---
 
-## Step 5 — Create labels
+## Step 6 — Create labels
 
 ```bash
 gh label create learning            --color 0E8A16 --description "Learn a concept"
@@ -132,7 +223,7 @@ automatically.
 
 ---
 
-## Step 6 — Create the Project board
+## Step 7 — Create the Project board
 
 **Your profile → Projects → New project → Board.**
 
@@ -177,7 +268,7 @@ are the artefact. Each Issue links to the note it will produce.
 
 ---
 
-## Step 7 — Verify the first deploy
+## Step 8 — Verify the first deploy
 
 ```bash
 git commit --allow-empty -m "Trigger first deploy"

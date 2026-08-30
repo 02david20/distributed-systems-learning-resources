@@ -18,6 +18,8 @@ distributed systems: written in **Obsidian**, versioned in **Git**, tracked
 with **GitHub Issues and Projects**, and published as a static site with
 **MkDocs Material** and **GitHub Pages**.
 
+**Published at [blogs.sentinelnodes.cc](https://blogs.sentinelnodes.cc/).**
+
 Plain Markdown all the way down. No database, no backend, no CMS.
 
 ---
@@ -99,6 +101,7 @@ Current week: [`01-Roadmap/current-week.md`](01-Roadmap/current-week.md)
 distributed-systems-learning-resources/
 ├── README.md                  ← this file; also the site home page
 ├── mkdocs.yml                 ← site configuration
+├── CNAME                      ← custom domain: blogs.sentinelnodes.cc
 ├── requirements.txt           ← documentation toolchain
 ├── hooks/publishing.py        ← keeps drafts off the website
 │

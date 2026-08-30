@@ -11,8 +11,10 @@
 site_name: Cloud & Distributed Systems Learning
 site_description: A working knowledge base for cloud computing and distributed systems.
 site_author: David
-# Change these two after creating the GitHub repository.
-site_url: https://02david20.github.io/distributed-systems-learning-resources/
+# Served from a custom domain (see the CNAME file at the repository root).
+# site_url drives canonical <link> tags and sitemap.xml, so it must match the
+# hostname visitors actually use — not the github.io fallback.
+site_url: https://blogs.sentinelnodes.cc/
 repo_url: https://github.com/02david20/distributed-systems-learning-resources
 repo_name: distributed-systems-learning-resources
 edit_uri: edit/main/
