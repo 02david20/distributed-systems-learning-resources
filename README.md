@@ -9,6 +9,13 @@ tags:
   - index
 created: 2026-08-30
 updated: 2026-08-30
+# Site-only keys, ignored by Obsidian and by GitHub.
+# `template` selects the landing-page layout in .overrides/home.html;
+# the hero replaces the sidebar and table of contents on this page.
+template: home.html
+hide:
+  - navigation
+  - toc
 ---
 
 # Cloud & Distributed Systems Learning

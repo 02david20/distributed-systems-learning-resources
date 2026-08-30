@@ -1,0 +1,178 @@
+{#-
+  Theme override: the landing page.
+
+  Selected per page with `template: home.html` in the Markdown frontmatter —
+  currently only README.md, the site home page. The page's own Markdown still
+  renders underneath the hero, exactly as on the Material for MkDocs site.
+
+  The hero is injected into the `tabs` block (not `content`) so that it sits
+  flush against the header, above the tab bar's normal position, and spans the
+  full window width rather than the content column.
+-#}
+{% extends "main.html" %}
+
+{% block tabs %}
+  {{ super() }}
+  <section class="mdx-container">
+    <div class="md-grid md-typeset">
+      <div class="mdx-hero">
+
+        {#- Left column: the pitch. -#}
+        <div class="mdx-hero__content">
+          <h1>Distributed systems, learned in the open</h1>
+          <p>
+            Six months of cloud and distributed systems study — concepts,
+            labs, failure experiments and architecture decisions — kept as
+            plain Markdown, versioned in Git, published as you read it.
+          </p>
+          <a
+            href="{{ '01-Roadmap/6-month-roadmap/' | url }}"
+            title="The six-month plan, week by week"
+            class="md-button md-button--primary"
+          >
+            Start the roadmap
+          </a>
+          <a
+            href="{{ '03-Concepts/' | url }}"
+            title="Every concept, mapped"
+            class="md-button"
+          >
+            Knowledge map
+          </a>
+        </div>
+
+        {#- Right column: an inline SVG so the hero needs no binary asset and
+            no network round-trip. Colours are translucent white, which keeps
+            it legible on the gradient in both colour schemes. -#}
+        <div class="mdx-hero__image">
+          <svg viewBox="0 0 420 300" role="img" aria-label="A leader node replicating a log to two followers" draggable="false">
+            <defs>
+              <marker id="mdx-arrow" viewBox="0 0 10 10" refX="9" refY="5"
+                      markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                <path d="M0 0 10 5 0 10z" fill="rgba(255,255,255,.55)"/>
+              </marker>
+            </defs>
+
+            {#- Replication edges, drawn first so the nodes sit on top of
+                them. Both leave the leader on a shared trunk at x=100 and turn
+                in at x=178, which keeps them clear of the follower boxes
+                (x >= 180) instead of crossing them. -#}
+            <g fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2"
+               marker-end="url(#mdx-arrow)">
+              <path d="M100 104 V166 a18 18 0 0 0 18 18 H176"/>
+              <path d="M100 104 V246 a18 18 0 0 0 18 18 H176"/>
+            </g>
+
+            {#- The replicated log, top left. -#}
+            <g>
+              <rect x="20" y="44" width="160" height="60" rx="8"
+                    fill="rgba(255,255,255,.16)" stroke="rgba(255,255,255,.5)" stroke-width="2"/>
+              <text x="34" y="68" fill="rgba(255,255,255,.75)"
+                    font-size="13" font-family="inherit">leader</text>
+              <g fill="rgba(255,255,255,.85)">
+                <rect x="34" y="78" width="24" height="14" rx="3"/>
+                <rect x="64" y="78" width="24" height="14" rx="3"/>
+                <rect x="94" y="78" width="24" height="14" rx="3"/>
+              </g>
+              <rect x="124" y="78" width="24" height="14" rx="3"
+                    fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2"/>
+            </g>
+
+            {#- Follower that is caught up. -#}
+            <g>
+              <rect x="180" y="154" width="160" height="60" rx="8"
+                    fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.4)" stroke-width="2"/>
+              <text x="194" y="178" fill="rgba(255,255,255,.7)"
+                    font-size="13" font-family="inherit">follower</text>
+              <g fill="rgba(255,255,255,.7)">
+                <rect x="194" y="188" width="24" height="14" rx="3"/>
+                <rect x="224" y="188" width="24" height="14" rx="3"/>
+                <rect x="254" y="188" width="24" height="14" rx="3"/>
+              </g>
+            </g>
+
+            {#- Follower that is one entry behind: the interesting case. -#}
+            <g>
+              <rect x="180" y="234" width="160" height="60" rx="8"
+                    fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.4)"
+                    stroke-width="2" stroke-dasharray="6 4"/>
+              <text x="194" y="258" fill="rgba(255,255,255,.7)"
+                    font-size="13" font-family="inherit">follower · lagging</text>
+              <g fill="rgba(255,255,255,.7)">
+                <rect x="194" y="268" width="24" height="14" rx="3"/>
+                <rect x="224" y="268" width="24" height="14" rx="3"/>
+              </g>
+              <rect x="254" y="268" width="24" height="14" rx="3"
+                    fill="none" stroke="rgba(255,255,255,.45)" stroke-width="2"/>
+            </g>
+          </svg>
+        </div>
+
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{#-
+  The feature grid, directly below the hero.
+
+  It lives in the template rather than in README.md because Material's card
+  grids are HTML (`<div class="grid cards">`), and GitHub does not render
+  Markdown inside raw HTML blocks — putting them in README.md would break the
+  repository's front page. The template keeps README.md plain Markdown that
+  reads correctly in Obsidian, on GitHub and here.
+
+  Icons come from Material's bundled icon set, wrapped in the theme's own
+  `twemoji` class so they inherit the size and alignment rules the theme
+  already defines for inline icons.
+-#}
+{% macro card(icon, title, href, text) -%}
+  <li>
+    <p>
+      <span class="twemoji lg middle">{% include ".icons/material/" ~ icon ~ ".svg" %}</span>
+      <strong>{{ title }}</strong>
+    </p>
+    <p>{{ text }}</p>
+    <p><a href="{{ href | url }}">{{ title }} &rarr;</a></p>
+  </li>
+{%- endmacro %}
+
+{% block content %}
+  <div class="mdx-home">
+    <div class="grid cards">
+      <ul>
+        {{ card(
+          "map-marker-path", "Roadmap", "01-Roadmap/6-month-roadmap/",
+          "Six months, week by week: what to read, what to build, and what
+           counts as done."
+        ) }}
+        {{ card(
+          "graph-outline", "Knowledge map", "03-Concepts/",
+          "Every concept in one place — replication, consistency, consensus,
+           messaging, Kubernetes — and how they connect."
+        ) }}
+        {{ card(
+          "flask-outline", "Labs", "04-Labs/",
+          "One experiment per engineering question. Prediction written first,
+           then the result that contradicts it."
+        ) }}
+        {{ card(
+          "school-outline", "Courses", "02-Courses/",
+          "MIT 6.5840 and UIUC Cloud Computing, with progress logs and the
+           notes taken along the way."
+        ) }}
+        {{ card(
+          "hammer-wrench", "Projects", "05-Projects/",
+          "The Distributed Job Platform: a system that has to survive worker
+           crashes and broker restarts."
+        ) }}
+        {{ card(
+          "bookshelf", "Resources", "07-Resources/",
+          "The papers, books, talks and documentation that are actually worth
+           the time."
+        ) }}
+      </ul>
+    </div>
+    {{ super() }}
+  </div>
+{% endblock %}

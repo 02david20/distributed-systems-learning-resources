@@ -1,0 +1,237 @@
+/* ---------------------------------------------------------------------------
+ * Theme extensions for the Material for MkDocs theme.
+ *
+ * Everything here is additive: no theme rule is overwritten, and nothing
+ * depends on Material's internal class names beyond the documented ones
+ * (`md-*`). Custom classes are prefixed `mdx-` to keep them distinguishable
+ * from the theme's own, following the convention used by the Material for
+ * MkDocs documentation itself.
+ *
+ * Colours are always expressed as theme variables (`--md-primary-fg-color`,
+ * ...) so that both colour schemes, and any future palette change in
+ * mkdocs.yml, are picked up automatically.
+ * ------------------------------------------------------------------------- */
+
+:root {
+  /* Indigo, matching the palette set in mkdocs.yml. Declared explicitly so
+     the hero gradient below has a fixed starting point rather than inheriting
+     whatever the header happens to be. */
+  --md-primary-fg-color: #4051b5;
+  --md-primary-fg-color--light: #7986cb;
+  --md-primary-fg-color--dark: #303f9f;
+
+  /* The far end of the hero gradient: indigo fades into violet. */
+  --mdx-hero-gradient-end: hsla(280, 67%, 55%, 1);
+
+  /* Mermaid diagrams otherwise fall back to a generic sans-serif. */
+  --md-mermaid-font-family: var(--md-text-font-family), sans-serif;
+}
+
+/* In dark mode the header is black (see `primary: black` in mkdocs.yml), so
+   the hero starts from indigo rather than from the header colour. The two
+   deliberately differ — the same choice the Material documentation makes. */
+[data-md-color-scheme="slate"] {
+  --md-hue: 232;
+}
+
+/* ---------------------------------------------------------------------------
+ * Announcement bar
+ * ------------------------------------------------------------------------- */
+
+.mdx-announce {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.mdx-announce svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  fill: currentcolor;
+  flex-shrink: 0;
+}
+
+.mdx-announce a {
+  color: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+/* ---------------------------------------------------------------------------
+ * Landing page hero
+ *
+ * Rendered by `.overrides/home.html` into the theme's `tabs` block, so it
+ * spans the full window width and sits directly below the header.
+ * ------------------------------------------------------------------------- */
+
+.mdx-container {
+  padding-top: 1rem;
+
+  /* Two layers: a translucent wave along the bottom edge, over an indigo to
+     violet gradient. The gradient's final 1% is the page background colour,
+     which hides the seam between the hero and the content below it in both
+     colour schemes without hard-coding either background. */
+  background:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='2500' height='80' preserveAspectRatio='none' viewBox='0 0 2500 80'><path fill='rgba(255,255,255,0.12)' d='M0 60c300-45 600 30 900-5s600 40 900 5 500 20 700-10v30H0z'/></svg>")
+      no-repeat bottom,
+    linear-gradient(
+      to bottom,
+      var(--md-primary-fg-color),
+      var(--mdx-hero-gradient-end) 99%,
+      var(--md-default-bg-color) 99%
+    );
+}
+
+.mdx-hero {
+  margin: 0 0.8rem;
+  color: var(--md-primary-bg-color);
+}
+
+.mdx-hero h1 {
+  margin-bottom: 1rem;
+  color: currentcolor;
+  font-weight: 700;
+}
+
+/* On narrow screens the theme's default h1 size is too heavy for a hero. */
+@media screen and (max-width: 29.9375em) {
+  .mdx-hero h1 {
+    font-size: 1.4rem;
+  }
+}
+
+.mdx-hero__content {
+  padding-bottom: 6rem;
+}
+
+.mdx-hero__content p {
+  max-width: 30rem;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.mdx-hero__image {
+  order: 1; /* Illustration to the right of the text in the wide layout. */
+  width: 100%;
+  transform: translateX(4rem);
+}
+
+.mdx-hero__image svg {
+  width: 100%;
+  height: auto;
+  max-height: 20rem;
+}
+
+/* Below the two-column breakpoint the illustration is decoration competing
+   for the fold, so it is dropped rather than stacked. */
+@media screen and (max-width: 59.9375em) {
+  .mdx-hero__image {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .mdx-hero {
+    display: flex;
+    align-items: center;
+  }
+
+  .mdx-hero__content {
+    max-width: 19rem;
+    margin-top: 3.5rem;
+    padding-bottom: 14vw;
+  }
+
+  .mdx-hero__image {
+    width: 38rem;
+    transform: translateX(4rem);
+  }
+}
+
+@media screen and (min-width: 76.25em) {
+  .mdx-hero__image {
+    transform: translateX(8rem);
+  }
+}
+
+/* Hero buttons: inverted against the gradient. */
+.mdx-hero .md-button {
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+  color: var(--md-primary-bg-color);
+}
+
+.mdx-hero .md-button:focus,
+.mdx-hero .md-button:hover {
+  background-color: var(--md-accent-fg-color);
+  color: var(--md-accent-bg-color);
+  border-color: var(--md-accent-fg-color);
+}
+
+.mdx-hero .md-button--primary {
+  background-color: var(--md-primary-bg-color);
+  color: var(--md-primary-fg-color);
+  border-color: var(--md-primary-bg-color);
+}
+
+/* ---------------------------------------------------------------------------
+ * Content tweaks
+ * ------------------------------------------------------------------------- */
+
+/* Card grids (`<div class="grid cards" markdown>`) lift on hover, so the
+   "Start here" tiles read as navigation rather than as boxed text. */
+.md-typeset .grid.cards > ul > li {
+  transition:
+    border-color 125ms,
+    box-shadow 125ms;
+}
+
+.md-typeset .grid.cards > ul > li:hover {
+  border-color: var(--md-accent-fg-color);
+  box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.1);
+}
+
+/* The progress bars in the roadmap are drawn with block characters; a
+   proportional fallback font would misalign them. */
+.md-typeset pre > code {
+  font-variant-ligatures: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Landing page body
+ *
+ * `.mdx-home` wraps the whole content block on the home page (see
+ * `.overrides/home.html`), which is otherwise identical to every other page.
+ * ------------------------------------------------------------------------- */
+
+/* The hero already states the title, so the page's own `# ...` heading is
+   redundant here. It stays in the Markdown because README.md is also the
+   repository's front page on GitHub, where the heading is the title. */
+.md-typeset .mdx-home > h1:first-of-type {
+  display: none;
+}
+
+/* `.md-typeset > :first-child` normally has its top margin removed; the
+   wrapper hides that relationship, so restore it explicitly. */
+.md-typeset .mdx-home > :first-child {
+  margin-top: 0;
+}
+
+.md-typeset .mdx-home > .grid.cards {
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+
+/* The edit and view-source buttons float into the top-right of the content
+   area, which on this page is the middle of the introduction rather than
+   beside a heading. The same links are in the header and the footer. */
+.mdx-home .md-content__button {
+  display: none;
+}

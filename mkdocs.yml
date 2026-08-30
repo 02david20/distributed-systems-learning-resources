@@ -27,40 +27,77 @@ docs_dir: .
 theme:
   name: material
   language: en
+  # Template overrides live in a dot-directory so MkDocs never copies them into
+  # the built site (`docs_dir` is the repository root). See .overrides/.
+  custom_dir: .overrides
   icon:
     repo: fontawesome/brands/github
+  # Roboto and Roboto Mono, served from Google Fonts. These are Material's own
+  # defaults; naming them keeps the site from silently changing if the theme
+  # ever picks a different default.
+  font:
+    text: Roboto
+    code: Roboto Mono
   features:
-    - navigation.instant
-    - navigation.tracking
+    # Navigation: tabs across the top, sticky on scroll, with breadcrumbs in
+    # the header and a prev/next pager in the footer.
     - navigation.tabs
+    - navigation.tabs.sticky
     - navigation.sections
-    - navigation.top
+    - navigation.path
     - navigation.indexes
+    - navigation.tracking
+    - navigation.top
+    - navigation.footer
+    # Single-page-application navigation: no full page reload between pages,
+    # links prefetched on hover, with a progress bar for slow responses.
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    # Table of contents follows the reading position.
     - toc.follow
+    # Search: live suggestions, hit highlighting, shareable result links.
     - search.suggest
     - search.highlight
     - search.share
+    # Content: copy and select buttons on code blocks, numbered code
+    # annotations, linked content tabs, and hover tooltips for abbreviations
+    # and footnotes.
     - content.code.copy
+    - content.code.select
+    - content.code.annotate
+    - content.tabs.link
+    - content.tooltips
+    - content.footnote.tooltips
     - content.action.edit
+    - content.action.view
+    # The announcement bar in .overrides/main.html can be dismissed.
+    - announce.dismiss
+  # Three-state palette toggle: system -> light -> dark, matching the switch
+  # used on the Material for MkDocs documentation.
   palette:
     - media: "(prefers-color-scheme)"
       toggle:
-        icon: material/brightness-auto
-        name: Follow system theme
+        icon: material/link
+        name: Switch to light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
       primary: indigo
       accent: indigo
       toggle:
-        icon: material/brightness-7
+        icon: material/toggle-switch
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: indigo
+      primary: black
       accent: indigo
       toggle:
-        icon: material/brightness-4
-        name: Switch to light mode
+        icon: material/toggle-switch-off
+        name: Switch to system preference
+
+# Hero styling and the landing-page layout. Path is relative to `docs_dir`.
+extra_css:
+  - assets/stylesheets/extra.css
 
 plugins:
   # Removes MkDocs' refusal to accept `docs_dir: .`. Must come first.
@@ -117,6 +154,16 @@ markdown_extensions:
       custom_checkbox: true
   - attr_list
   - md_in_html
+  # Icons and emoji (`:material-cube-outline:`), used by the card grids on the
+  # home page. Twemoji + inline SVG so no icon font is fetched at runtime.
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  # Keyboard keys: ++ctrl+alt+del++
+  - pymdownx.keys
+  # Abbreviations. With the `content.tooltips` theme feature these render as
+  # the theme's own tooltips rather than the browser's.
+  - abbr
   - def_list
   - footnotes
   - tables

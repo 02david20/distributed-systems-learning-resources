@@ -1,0 +1,24 @@
+{#-
+  Theme override: site-wide chrome.
+
+  `custom_dir: .overrides` in mkdocs.yml points here. The directory name starts
+  with a dot so MkDocs never copies these templates into the built site — they
+  are build inputs, not pages.
+
+  Only the blocks that need changing are overridden; everything else is
+  inherited from mkdocs-material's own `base.html`.
+-#}
+{% extends "base.html" %}
+
+{#- The dismissible bar above the header. Requires the `announce.dismiss`
+    theme feature, which remembers a dismissal in local storage. -#}
+{% block announce %}
+  <span class="mdx-announce">
+    {% include ".icons/material/school.svg" %}
+    Notes written while learning — expect gaps, and check the dates.
+    <a href="{{ config.repo_url }}">
+      Follow along on GitHub
+      {% include ".icons/material/arrow-right.svg" %}
+    </a>
+  </span>
+{% endblock %}
